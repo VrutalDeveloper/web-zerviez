@@ -4,7 +4,7 @@ import HomeHeader from "../../components/HomeHeader/HomeHeader";
 
 const Home: FC = () => {
   return (
-    <Layout>
+    <Layout data-testid="layout">
       <HomeHeader data-testid="header" />
     </Layout>
   );
