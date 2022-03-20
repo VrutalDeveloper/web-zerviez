@@ -8,7 +8,7 @@ env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   REPO_NAME: ${{ secrets.DOCKER_REPOSITORY_NAME }}
-  TAG: v0.0.2
+  TAG: 0.1.0
 
 jobs:
   build:
