@@ -20,7 +20,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build -t $DOCKER_USER\$REPO_NAME:$TAG .
+        docker build -t $DOCKER_USER/$REPO_NAME:$TAG .
     - name: docker push
       run: |
-        docker push $DOCKER_USER\$REPO_NAME:$TAG
+        docker push $DOCKER_USER/$REPO_NAME:$TAG
