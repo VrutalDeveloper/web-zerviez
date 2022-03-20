@@ -2,8 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
-    
+    branches: [main]
+
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -14,18 +14,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: docker test
-      run: |
-        docker build -t $DOCKER_USER/test -f Dockerfile.test .
-        docker run --rm $DOCKER_USER/test
-        docker rmi $DOCKER_USER/test
-    - name: docker login
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: docker build
-      run: |
-        docker build -t $DOCKER_USER/$REPO_NAME:$TAG .
-    - name: docker push
-      run: |
-        docker push $DOCKER_USER/$REPO_NAME:$TAG
+      - uses: actions/checkout@v2
+      - name: docker test
+        run: |
+          docker build -t $DOCKER_USER/test -f Dockerfile.test .
+          docker run --rm $DOCKER_USER/test
+          docker rmi $DOCKER_USER/test
+      - name: docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: docker build
+        run: |
+          docker build -t $DOCKER_USER/$REPO_NAME:$TAG -t $DOCKER_USER/$REPO_NAME:latest .
+      - name: docker push
+        run: |
+          docker push $DOCKER_USER/$REPO_NAME:$TAG
+          docker push $DOCKER_USER/$REPO_NAME:latest
