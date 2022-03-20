@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
     
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -22,7 +20,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build . -t $DOCKER_USER\$REPO_NAME:$TAG
+        docker build -t $DOCKER_USER\$REPO_NAME:$TAG .
     - name: docker push
       run: |
         docker push $DOCKER_USER\$REPO_NAME:$TAG
