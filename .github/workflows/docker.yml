@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: docker test
+      run: |
+        docker build -t $DOCKER_USER/test -f Dockerfile.test .
+        docker run --rm $DOCKER_USER/test
+        docker rmi $DOCKER_USER/test
     - name: docker login
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
