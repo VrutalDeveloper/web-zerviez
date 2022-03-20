@@ -44,18 +44,16 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => {
-        // @ts-ignore
-        const EnhanceApp = (props) => <App emotionCache={cache} {...props} />;
-
-        return EnhanceApp;
-      },
+      enhanceApp: (App: any) =>
+        function EnhanceApp(props) {
+          return <App emotionCache={cache} {...props} />;
+        },
     });
 
   const initialProps = await Document.getInitialProps(ctx);
 
   const emotionStyles = extractCriticalToChunks(initialProps.html);
-  const emotionStylesTags = emotionStyles.styles.map((style) => (
+  const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
       data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
@@ -66,7 +64,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
 
   return {
     ...initialProps,
-    emotionStylesTags,
+    emotionStyleTags,
   };
 };
 
